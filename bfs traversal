@@ -1,0 +1,48 @@
+#include<bits/stdc++.h>
+vector<int> BFS(int vertex, vector<pair<int, int>> edges)
+{
+    int n=vertex;
+	int m=edges.size();
+	vector<int> adj[n];
+	for(int i=0;i<m;i++)
+	{
+		int u=edges[i].first;
+		int v=edges[i].second;
+		adj[u].push_back(v);
+		adj[v].push_back(u);
+	}
+	for(int i=0;i<n;i++)
+	{
+		sort(adj[i].begin(),adj[i].end());
+	}
+	vector<int> vis(n,0);  //SC
+    vector<int> storeBfs;
+	for(int i=0;i<n;i++)
+	{
+		if(!vis[i])
+        {
+          queue<int> q;  //SC
+          q.push(i);
+          vis[i]=1;      
+                
+          while(!q.empty())
+         {
+             int node=q.front();
+             q.pop();
+             storeBfs.push_back(node);
+                    
+             for(auto it: adj[node])
+             {
+                  if(!vis[it])
+                 {
+                    q.push(it);
+                    vis[it]=1;
+                 }        
+             }       
+          }
+		}	
+     }
+        
+        
+    return storeBfs;
+}
