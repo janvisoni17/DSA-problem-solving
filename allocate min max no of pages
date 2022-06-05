@@ -1,0 +1,48 @@
+#include<bits/stdc++.h>
+#include<math.h>
+bool isPossible(long long maxTime,int n,int m,vector<int>& time)
+{
+    int cnt=0;
+    long long sumAllocated=0;
+    for(int i=0;i<m;i++)
+    {
+        if(sumAllocated+time[i]>maxTime)
+        {
+            cnt++;
+            sumAllocated=time[i];
+            if(sumAllocated>maxTime)
+                return false;
+        }
+        else
+            sumAllocated+=time[i];
+    }
+    
+    if(cnt<n)
+        return true;
+    return false;
+    
+}
+
+long long ayushGivesNinjatest(int n, int m, vector<int> time) 
+{	
+	// time array of no of pages
+    //no of students : days n
+    //no of chapters : m size of array
+    long long low=time[0];
+    long long high=0;
+    for(int i=0;i<m;i++)
+    {
+        high+=time[i];
+        low=min(low,(long long )(time[i]));
+    }
+    
+    while(low<=high)
+    {
+       long long mid=(low+high)>>1;
+        if(isPossible(mid,n,m,time))
+            high=mid-1;   //get the tighter bound if its possible because u need min max
+        else
+            low=mid+1;
+    }
+    return low;
+}
