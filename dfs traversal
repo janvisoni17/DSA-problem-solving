@@ -1,0 +1,47 @@
+void dfs(int node,vector<int> adj[],vector<int>& vis,vector<int>& ans)
+    {
+        
+	    ans.push_back(node);
+	    vis[node]=1;
+        
+        for(auto it: adj[node])
+        {
+            if(!vis[it])
+            dfs(it,adj,vis,ans);
+        }
+    }
+
+vector<vector<int>> depthFirstSearch(int V, int E, vector<vector<int>> &edges)
+{
+    int m=E;
+	int count=0;
+	vector<int> ans;
+	vector<int> adj[V]; //0 based indexing
+	for(int i=0;i<m;i++)
+	{
+		int u=edges[i][0];
+		int v=edges[i][1];
+		adj[u].push_back(v);
+		adj[v].push_back(u);
+	}
+	vector<vector<int>> storeDfs;
+	vector<vector<int>> storeDfs2;
+    vector<int> vis(V,0);
+        
+    for(int i=0;i<V;i++)
+    {
+         if(!vis[i])
+		 {
+			count=count+1;
+			dfs(i,adj,vis,ans);
+			storeDfs2.push_back(ans);
+			ans.clear();
+		 }
+    }
+	//vector<int> c;
+	//c.push_back(count);
+	//storeDfs.push_back(c);
+	for(int i=0;i<storeDfs2.size();i++)
+	storeDfs.push_back(storeDfs2[i]);
+        return storeDfs;
+}
