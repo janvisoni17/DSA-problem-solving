@@ -1,0 +1,37 @@
+https://leetcode.com/problems/binary-tree-postorder-traversal/submissions/
+
+
+vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> postorder;
+        TreeNode* cur=root;
+        
+        while(cur!=NULL)
+        {
+            if(cur->right==NULL)
+            {
+                postorder.push_back(cur->val);
+                cur=cur->left;
+            }
+            else
+            {
+                TreeNode* prev=cur->right;
+                
+                while(prev->left!=NULL && prev->left!=cur)
+                    prev=prev->left;
+                
+                if(prev->left==NULL)
+                {
+                    prev->left=cur;
+                    postorder.push_back(cur->val);
+                    cur=cur->right;
+                }
+                else
+                {
+                    prev->left=NULL;
+                    cur=cur->left;
+                }
+            }
+        }
+        reverse(postorder.begin(),postorder.end());
+        return postorder;
+    }
