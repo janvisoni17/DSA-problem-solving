@@ -1,0 +1,73 @@
+https://leetcode.com/problems/binary-tree-inorder-traversal/submissions/
+
+
+TC : O(N)
+SC:O(N)
+class Solution {
+public:
+    vector<int>inorder;
+  
+    void inorder_(TreeNode* node)
+    {
+        
+        if(node==NULL)
+            return;
+        
+        inorder_(node->left);
+        inorder.push_back(node->val);
+        inorder_(node->right);
+        
+    }
+      vector<int> inorderTraversal(TreeNode* root) {
+        inorder_(root);
+        return inorder;
+        
+    }
+    
+};
+
+
+
+class Solution {
+public:
+    vector<int> preorderAns;
+    void preorder_(TreeNode* node)
+    {
+        if(node==NULL)
+            return;
+        
+        preorderAns.push_back(node->val);
+        preorder_(node->left);
+        preorder_(node->right);
+    }
+    vector<int> preorderTraversal(TreeNode* root) {
+        preorder_(root);
+        return preorderAns;
+    }
+};
+
+
+
+
+https://practice.geeksforgeeks.org/problems/postorder-traversal/1#
+
+THIS METHOD RUNNING ON BOTH GFG AND LEETCODE THE ABOVE ONES WERE NOT WORKING ON GFG
+class Solution {
+public:
+    vector<int> postorderAns;
+    void postorder_(TreeNode* node,vector<int>& ans)
+    {
+    if(node==NULL)
+        return;
+        
+    postorder_(node->left,ans);
+    postorder_(node->right,ans);
+    ans.push_back(node->val);
+    }
+    
+    vector<int>postorderTraversal(TreeNode* root) {
+      vector<int> ans;
+      postorder_(root,ans);
+      return ans;  
+    }
+};
