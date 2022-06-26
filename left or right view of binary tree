@@ -1,0 +1,45 @@
+LEFT VIEW OF BINARY TREE
+https://practice.geeksforgeeks.org/problems/left-view-of-binary-tree/1#
+
+void recursion(Node* node,vector<int>& ans,int level)
+{
+    if(node==NULL)
+    return;
+    
+    if(ans.size()==level)
+        ans.push_back(node->data);
+        
+    recursion(node->left,ans,level+1);
+    recursion(node->right,ans,level+1);
+}
+
+
+
+vector<int> leftView(Node *root)
+{
+   vector<int> ans;
+   recursion(root,ans,0);
+   return ans;
+}
+
+
+
+https://practice.geeksforgeeks.org/problems/right-view-of-binary-tree/1#
+void recursion(Node* node, vector<int>& ans,int level)
+    {
+        if(node==NULL)
+        return;
+        
+        if(ans.size()==level)
+            ans.push_back(node->data);
+            
+        recursion(node->right,ans,level+1);
+        recursion(node->left,ans,level+1);
+    }
+    
+    vector<int> rightView(Node *root)
+    {
+       vector<int> ans;
+       recursion(root,ans,0);
+       return ans;
+    }
